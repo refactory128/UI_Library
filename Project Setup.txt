@@ -1,0 +1,31 @@
+src folder
+dist folder
+webpack.config.js
+.gitignore
+
+
+Basic Setup  https://webpack.js.org/guides/getting-started/
+npm init -y
+npm install webpack webpack-cli --save-dev
+
+Assets https://webpack.js.org/guides/asset-management/
+npm install --save-dev style-loader css-loader file-loader
+
+Linting
+npm install eslint --save-dev
+./node_modules/.bin/eslint --init
+√ How would you like to use ESLint? · style
+√ What type of modules does your project use? · commonjs
+√ Which framework does your project use? · none
+√ Does your project use TypeScript? · No / Yes
+√ Where does your code run? · browser
+√ How would you like to define a style for your project? · guide
+√ Which style guide do you want to follow? · airbnb
+√ What format do you want your config file to be in? · JSON
+
+
+Running webpack
+npx webpack --watch
+
+deploying to github
+git subtree push --prefix dist origin gh-pages

@@ -1,0 +1,32 @@
+{
+  "name": "ui_library",
+  "version": "1.0.0",
+  "description": "A light weight dynamic UI library for JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --fix main.js",
+    "format": "prettier -w ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/refactory128/UI_Library.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/refactory128/UI_Library/issues"
+  },
+  "homepage": "https://github.com/refactory128/UI_Library#readme",
+  "devDependencies": {
+    "css-loader": "^6.5.1",
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "file-loader": "^6.2.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1"
+  }
+}
