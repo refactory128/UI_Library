@@ -21,6 +21,9 @@ function navBar(callback) {
   body.appendChild(nav);
 }
 */
-dropdownMenu();
+dropdownMenu(
+  document.querySelector(".mainMenuButton"),
+  document.querySelector(".dropdownMenu")
+);
 
 //add stuff here

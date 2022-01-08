@@ -41,6 +41,10 @@ button {
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
+.visible {
+  display: flex;
+}
+
 .dropdownMenu a {
   color: #264653;
   padding: 12px 16px;
