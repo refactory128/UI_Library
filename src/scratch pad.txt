@@ -1,0 +1,12 @@
+    <div class="nav">
+
+      <h1>SOME SITE</h1>
+      <div class="dropdown">
+        <button class="mainMenuButton">MAIN MENU</button>
+        <div class="dropdownMenu">
+          <a>SUB MENU 1</a>
+          <a>SUB MENU 2</a>
+          <a>SUB MENU 3</a>
+        </div>
+      </div>
+    </div>

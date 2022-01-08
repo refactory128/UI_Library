@@ -11,6 +11,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 30px;
   color: #e76f51;
+  background-color: #ddd;
 }
 
 button {
@@ -41,8 +42,8 @@ button {
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
-.visible {
-  display: flex;
+.dropdown a:hover {
+  background-color: #e9c46a;
 }
 
 .dropdownMenu a {
@@ -52,7 +53,20 @@ button {
   display: block;
 }
 
-.dropdown a:hover {
+.dropdownMobile {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownMenuMobile a {
+  color: #000000;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  background-color: #2a9d8f;
+}
+
+.dropdownMenuMobile a:hover {
   background-color: #e9c46a;
 }
 
@@ -70,4 +84,16 @@ button {
 .nav > img {
   width: 50px;
   fill: white;
+}
+
+@media only screen and (min-width: 600px) {
+  .mobile {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .desktop {
+    display: none;
+  }
 }
