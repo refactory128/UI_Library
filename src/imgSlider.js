@@ -12,11 +12,9 @@ class imageData {
 
   getImage(imageNumber) {
     if (imageNumber >= 0 && imageNumber < this.imageSourceArray.length) {
-      console.log("getImage input number (success)= " + imageNumber);
       this.currentImage = imageNumber;
       return this.imageSourceArray[imageNumber];
     }
-    console.log("getImage input number (fail)= " + imageNumber);
     return 0;
   }
 }
@@ -99,7 +97,6 @@ class dots {
         .getDomImageElement()
         .addEventListener("click", function (e) {
           canvas.src = dotClickCallback(i);
-          console.log("current image number = " + i);
           self.update(i);
         });
 
@@ -126,7 +123,6 @@ dots.prototype.getDomElement = function () {
 
 dots.prototype.clearAll = function () {
   for (let i = 0; i < this.elements.length; i++) {
-    console.log("clearAll Function");
     this.elements[i].clear();
   }
 };
@@ -139,6 +135,7 @@ export default function imgSlider(imageSourceArray) {
   const container = document.createElement("div");
 
   const sliderDiv = document.createElement("div");
+  sliderDiv.style.display = "flex";
   container.appendChild(sliderDiv);
 
   const canvas = document.createElement("img");
@@ -176,7 +173,7 @@ export default function imgSlider(imageSourceArray) {
   dotsDiv.appendChild(rightArrow);
 
   container.appendChild(dotsDiv);
-
+  /*
   setInterval(
     function (canvas, sliderData) {
       canvas.src = sliderData.getNextImage();
@@ -188,6 +185,6 @@ export default function imgSlider(imageSourceArray) {
     canvas,
     sliderData
   );
-
+*/
   return container;
 }
