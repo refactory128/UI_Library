@@ -7,16 +7,21 @@ class imageData {
   constructor(imageSourceArray = []) {
     this.imageSourceArray = imageSourceArray;
     this.currentImage = this.imageSourceArray.length;
-    this.getImageNumber = this.getImageNumber.bind(this);
+    this.getImage = this.getImage.bind(this);
   }
 
-  getImageNumber(imageNumber) {
+  getImage(imageNumber) {
     if (imageNumber >= 0 && imageNumber < this.imageSourceArray.length) {
       return this.imageSourceArray[imageNumber];
     }
     return 0;
   }
 }
+
+imageData.prototype.getImageNumber = function () {
+  console.log(this.currentImage);
+  return this.currentImage;
+};
 
 imageData.prototype.getNextImage = function () {
   if (this.currentImage + 1 >= this.imageSourceArray.length) {
@@ -89,19 +94,18 @@ class dots {
   constructor(numberOfDots, dotClickCallback, canvas) {
     this.elements = [];
     this.domElement = document.createElement("div");
+    this.dotClickCallback;
+    this.canvas;
+
     for (let i = 0; i < numberOfDots; i++) {
       this.elements.push(new dot());
       this.domElement.appendChild(this.elements[i].getDomImageElement());
-      //this.clearAll();
-
+      let self = this;
+      // handle clicking one of the dots
       this.elements[i]
         .getDomImageElement()
         .addEventListener("click", function (e) {
-          //how do I pass the dots "this" element into the add event listener function function?
-          //this.clearAll();
-
-          /////
-          //this.elements[i].getDomImageElement().fill();
+          self.update(i);
           canvas.src = dotClickCallback(i);
         });
 
@@ -115,6 +119,12 @@ class dots {
     }
   }
 }
+
+dots.prototype.update = function (currentSelection) {
+  this.clearAll();
+  console.log("update = " + currentSelection);
+  this.elements[currentSelection].fill();
+};
 
 dots.prototype.getDomElement = function () {
   return this.domElement;
@@ -139,6 +149,7 @@ export default function imgSlider(imageSourceArray) {
 
   const canvas = document.createElement("img");
   canvas.src = sliderData.getNextImage();
+  canvas.style.width = "100vw";
   /*
   setInterval(
     function (canvas, sliderData) {
@@ -155,6 +166,14 @@ export default function imgSlider(imageSourceArray) {
   sliderDiv.appendChild(canvas);
 
   const dotsDiv = document.createElement("div");
+  dotsDiv.style.display = "flex";
+  dotsDiv.style.justifyContent = "center";
+
+  const dotsControl = new dots(
+    sliderData.getNumberOfImages(),
+    sliderData.getImage,
+    canvas
+  );
 
   const leftArrow = new Image();
   leftArrow.src = leftIconSrc;
@@ -162,15 +181,10 @@ export default function imgSlider(imageSourceArray) {
     canvas.src = sliderData.getPreviousImage();
     console.log(canvas.src);
     console.log(sliderData.currentImage);
+    dotsControl.update(sliderData.getImageNumber());
   });
   dotsDiv.appendChild(leftArrow);
 
-  const dotsControl = new dots(
-    sliderData.getNumberOfImages(),
-    sliderData.getImageNumber,
-    canvas
-    //how do we get the image src back to the canvas
-  );
   dotsDiv.appendChild(dotsControl.getDomElement());
 
   const rightArrow = new Image();
@@ -179,6 +193,7 @@ export default function imgSlider(imageSourceArray) {
     canvas.src = sliderData.getNextImage();
     console.log(canvas.src);
     console.log(sliderData.currentImage);
+    dotsControl.update(sliderData.getImageNumber());
   });
   dotsDiv.appendChild(rightArrow);
 
