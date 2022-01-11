@@ -12,29 +12,30 @@ class imageData {
 
   getImage(imageNumber) {
     if (imageNumber >= 0 && imageNumber < this.imageSourceArray.length) {
+      console.log("getImage input number (success)= " + imageNumber);
+      this.currentImage = imageNumber;
       return this.imageSourceArray[imageNumber];
     }
+    console.log("getImage input number (fail)= " + imageNumber);
     return 0;
   }
 }
 
 imageData.prototype.getImageNumber = function () {
-  console.log(this.currentImage);
   return this.currentImage;
 };
 
 imageData.prototype.getNextImage = function () {
-  if (this.currentImage + 1 >= this.imageSourceArray.length) {
+  if (this.currentImage >= this.imageSourceArray.length - 1) {
     this.currentImage = 0;
   } else {
     this.currentImage++;
   }
-
   return this.imageSourceArray[this.currentImage];
 };
 
 imageData.prototype.getPreviousImage = function () {
-  if (this.currentImage - 1 < 0) {
+  if (this.currentImage <= 0) {
     this.currentImage = this.imageSourceArray.length - 1;
   } else {
     this.currentImage--;
@@ -46,17 +47,9 @@ imageData.prototype.getPreviousImage = function () {
 imageData.prototype.getNumberOfImages = function () {
   return this.imageSourceArray.length;
 };
-/*
-imageData.prototype.getImageNumber = function (imageNumber) {
-  if (imageNumber >= 0 && imageNumber < this.imageSourceArray.length) {
-    return this.imageSourceArray[imageNumber];
-  }
-  return 0;
-};
-*/
 
 /////////////////////
-//Dots
+//Dot
 
 class dot {
   constructor() {
@@ -105,8 +98,9 @@ class dots {
       this.elements[i]
         .getDomImageElement()
         .addEventListener("click", function (e) {
-          self.update(i);
           canvas.src = dotClickCallback(i);
+          console.log("current image number = " + i);
+          self.update(i);
         });
 
       //fill the first dot
@@ -150,18 +144,6 @@ export default function imgSlider(imageSourceArray) {
   const canvas = document.createElement("img");
   canvas.src = sliderData.getNextImage();
   canvas.style.width = "100vw";
-  /*
-  setInterval(
-    function (canvas, sliderData) {
-      canvas.src = sliderData.getNextImage();
-      console.log(canvas.src);
-      console.log(sliderData.currentImage);
-    },
-    5000,
-    canvas,
-    sliderData
-  );
-*/
 
   sliderDiv.appendChild(canvas);
 
@@ -179,8 +161,6 @@ export default function imgSlider(imageSourceArray) {
   leftArrow.src = leftIconSrc;
   leftArrow.addEventListener("click", function (e) {
     canvas.src = sliderData.getPreviousImage();
-    console.log(canvas.src);
-    console.log(sliderData.currentImage);
     dotsControl.update(sliderData.getImageNumber());
   });
   dotsDiv.appendChild(leftArrow);
@@ -191,13 +171,23 @@ export default function imgSlider(imageSourceArray) {
   rightArrow.src = rightIconSrc;
   rightArrow.addEventListener("click", function (e) {
     canvas.src = sliderData.getNextImage();
-    console.log(canvas.src);
-    console.log(sliderData.currentImage);
     dotsControl.update(sliderData.getImageNumber());
   });
   dotsDiv.appendChild(rightArrow);
 
   container.appendChild(dotsDiv);
+
+  setInterval(
+    function (canvas, sliderData) {
+      canvas.src = sliderData.getNextImage();
+      console.log(canvas.src);
+      console.log(sliderData.currentImage);
+      dotsControl.update(sliderData.getImageNumber());
+    },
+    5000,
+    canvas,
+    sliderData
+  );
 
   return container;
 }
